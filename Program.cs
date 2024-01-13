@@ -14,7 +14,16 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions()
+{
+    OnPrepareResponse = (context) =>
+    {
+        //Wy³¹czenie stosowania pamiêci podrêcznej dla wszystkich plików statycznych
+        context.Context.Response.Headers["Cache-Control"] = builder.Configuration["StaticFiles:Headers:Cache-Control"];
+        context.Context.Response.Headers["Pragma"] = builder.Configuration["StaticFiles:Headers:Pragma"]; ;
+        context.Context.Response.Headers["Expires"] = builder.Configuration["StaticFiles:Headers:Expires"]; ;
+    }
+});
 app.UseRouting();
 
 
