@@ -24,9 +24,8 @@ app.UseStaticFiles(new StaticFileOptions()
         context.Context.Response.Headers["Expires"] = builder.Configuration["StaticFiles:Headers:Expires"]; ;
     }
 });
+
 app.UseRouting();
-
-
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
