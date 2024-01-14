@@ -63,9 +63,9 @@ namespace TestMakerFreeWebApp.Controllers
             
             return new JsonResult(
                 sampleQuizzes.OrderBy(t => t.Title),
-                new JsonSerializerOptions
+                new JsonSerializerSettings()
                 {
-                    WriteIndented = true
+                    Formatting = Formatting.Indented,
                 });
         }
 
@@ -82,9 +82,9 @@ namespace TestMakerFreeWebApp.Controllers
 
             return new JsonResult(
                 sampleQuizzes.OrderBy(t => Guid.NewGuid()),
-                new JsonSerializerOptions
+                new JsonSerializerSettings()
                 {
-                    WriteIndented = true
+                    Formatting = Formatting.Indented,
                 });
         }
     }
