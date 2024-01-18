@@ -7,6 +7,50 @@ namespace TestMakerFreeWebApp.Controllers
     [Route("api/[controller]")]
     public class ResultController : ControllerBase
     {
+        #region Methods adapting to the REST convention
+        /// <summary>
+        /// Retrieves the result with the specified {id}
+        /// </summary>
+        /// <param name="id">identifier of the existing result</param>
+        /// <returns>the answer of {id}</returns>
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            return Content("Not yet implemented");
+        }
+
+        /// <summary>
+        /// Adds a new result to the database
+        /// </summary>
+        /// <param name="model">ResultViewModel object with data to be inserted</param>
+        [HttpPut]
+        public IActionResult Put(ResultViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Modifies the result with the specified {id}
+        /// </summary>
+        /// <param name="model">ResultViewModel object with data to be updated</param>
+        [HttpPost]
+        public IActionResult Post(ResultViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Deletes the result with the specified {id} from the database
+        /// </summary>
+        /// <param name="id">identification of the existing result</param>
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Routing methods based on atributes
         // GET api/answer/all
         [HttpGet("All/{quizId}")]
         public IActionResult All(int quizId)
@@ -44,5 +88,6 @@ namespace TestMakerFreeWebApp.Controllers
                     Formatting = Formatting.Indented,
                 });
         }
+        #endregion
     }
 }

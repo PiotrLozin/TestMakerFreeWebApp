@@ -39,6 +39,36 @@ namespace TestMakerFreeWebApp.Controllers
                     Formatting = Formatting.Indented,
                 });
         }
+
+        /// <summary>
+        /// Adds a new quiz to the database
+        /// </summary>
+        /// <param name="model">QuizViewModel object with data to be inserted</param>
+        [HttpPut]
+        public IActionResult Put(QuizViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Modifies the quiz with the specified {id}
+        /// </summary>
+        /// <param name="model">QuizViewModel object with data to be updated</param>
+        [HttpPost]
+        public IActionResult Post(QuizViewModel model)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Deletes the response with the specified {id} from the database
+        /// </summary>
+        /// <param name="id">identification of the existing response</param>
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
 
         #region Routing methods based on atributes
