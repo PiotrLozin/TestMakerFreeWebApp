@@ -12,7 +12,42 @@ namespace TestMakerFreeWebApp.Controllers
     [ApiController]
     public class QuizController : ControllerBase
     {
-        //GET api/quiz/latest
+        #region Methods adapting to the REST convention
+        /// <summary>
+        /// GET: api/quiz/{}id
+        /// </summary>
+        /// <param name="id">Identifier of the existing quiz</param>
+        /// <returns>Quiz with provided {id}</returns>
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            //Add first sample question
+            var v = new QuizViewModel()
+            {
+                Id = id,
+                Text = String.Format("sample quiz with the identifier {0}", id),
+                Description = "This is not a real quiz - just a sample",
+                CreatedDate = DateTime.Now,
+                LastModifiedDate = DateTime.Now,
+            };
+
+            //Return results in JSON format
+            return new JsonResult(
+                v,
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented,
+                });
+        }
+        #endregion
+
+        #region Routing methods based on atributes
+        /// <summary>
+        /// GET api/quiz/latest
+        /// Get {num} first quizes
+        /// </summary>
+        /// <param name="id">Number of quizes to GET</param>
+        /// <returns>{num} newest quiz</returns>
         [HttpGet("Latest/{num?}")]
         public IActionResult Latest(int num = 10)
         {
@@ -87,5 +122,6 @@ namespace TestMakerFreeWebApp.Controllers
                     Formatting = Formatting.Indented,
                 });
         }
+        #endregion
     }
 }
