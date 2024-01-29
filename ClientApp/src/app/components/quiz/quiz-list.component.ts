@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, Input, OnInit } from "@angular/core";
 import { Quiz } from "../../interfaces/quiz";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "quiz-list",
@@ -16,7 +17,8 @@ export class QuizListComponent implements OnInit {
   baseUrl: string;
 
   constructor(private http: HttpClient,
-    @Inject('BASE_URL') baseUrl: string) {
+    @Inject('BASE_URL') baseUrl: string,
+    private router: Router  ) {
     this.baseUrl = "https://localhost:7136/api/quiz/";
   }
 
@@ -49,6 +51,7 @@ export class QuizListComponent implements OnInit {
     this.selectedQuiz = quiz;
     console.log("Selected was quiz with identificator: "
       + this.selectedQuiz.Id);
+    this.router.navigate(["quiz", this.selectedQuiz.Id]);
   }
 }
 

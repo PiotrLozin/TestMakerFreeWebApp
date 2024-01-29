@@ -24,12 +24,20 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\components\about\about.component.ts" />
+    <None Remove="ClientApp\src\app\components\login\login.component.ts" />
+    <None Remove="ClientApp\src\app\components\pagenotfound\pagenotfound.component.ts" />
     <None Remove="ClientApp\src\app\components\quiz\file.ts" />
     <None Remove="ClientApp\src\app\components\quiz\quiz-list.component.ts" />
     <None Remove="ClientApp\src\app\interfaces\quiz.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\components\about\about.component.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\components\pagenotfound\pagenotfound.component.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="ClientApp\src\app\components\login\login.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\components\quiz\quiz-list.component.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\interfaces\quiz.ts" />
   </ItemGroup>
