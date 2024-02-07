@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestMakerFreeWebApp.Data.Models
 {
@@ -23,9 +24,9 @@ namespace TestMakerFreeWebApp.Data.Models
         [Required]
         public string Text { get; set; }
 
-        public int Value { get; set; }
+        public int? Value { get; set; }
 
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         [DefaultValue(0)]
         public int Type { get; set; }
@@ -38,6 +39,15 @@ namespace TestMakerFreeWebApp.Data.Models
 
         [Required]
         public DateTime LastModifiedDate { get; set; }
+        #endregion
+
+        #region Properties lazily loaded
+        /// <summary>
+        /// Overarching Question
+        /// </summary>
+        [ForeignKey("QuestionId")]
+        public virtual Question Question { get; set; }
+
         #endregion
     }
 }

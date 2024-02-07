@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestMakerFreeWebApp.Data.Models
 {
@@ -14,7 +15,7 @@ namespace TestMakerFreeWebApp.Data.Models
         #region Properties
         [Key]
         [Required]
-        public int Id { get; set; }
+        public string Id { get; set; }
 
         [Required]
         [MaxLength(128)]
@@ -23,9 +24,9 @@ namespace TestMakerFreeWebApp.Data.Models
         [Required]
         public string Email { get; set; }
 
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
 
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         [Required]
         public int Type { get; set; }
@@ -38,6 +39,14 @@ namespace TestMakerFreeWebApp.Data.Models
 
         [Required]
         public DateTime LastModifiedDate { get; set; }
+        #endregion
+
+        #region Properties lazily loaded
+        /// <summary>
+        /// List of all quizes created by this user
+        /// </summary>
+        public virtual List<Quiz> Quizzes { get; set; }
+
         #endregion
     }
 }

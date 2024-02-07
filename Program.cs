@@ -1,9 +1,14 @@
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using TestMakerFreeWebApp.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add db context
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddCors(options =>
@@ -17,6 +22,11 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+var dbContext = app.Services.CreateScope().ServiceProvider.GetService<ApplicationDbContext>();
+dbContext.Database.Migrate();
+
+DbSeeder.Seed(dbContext);
 
 // Configure the HTTP request pipeline.
 //if (!app.Environment.IsDevelopment())

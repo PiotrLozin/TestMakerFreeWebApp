@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TestMakerFreeWebApp.Data.Models
 {
@@ -20,11 +21,11 @@ namespace TestMakerFreeWebApp.Data.Models
         [Required]
         public string Title { get; set; }
         
-        public string Description { get; set; }
+        public string? Description { get; set; }
         
-        public string Text { get; set; }
+        public string? Text { get; set; }
 
-        public string Notes { get; set; }
+        public string? Notes { get; set; }
 
         [DefaultValue(0)]
         public int Type { get; set; }
@@ -43,6 +44,27 @@ namespace TestMakerFreeWebApp.Data.Models
 
         [Required]
         public DateTime LastModifiedDate { get; set; }
+        #endregion
+
+        #region Properties lazily loaded
+        /// <summary>
+        /// The quiz author will be loaded on first use
+        /// thanks to EF's lazy loading fnctionality
+        /// </summary>
+        [ForeignKey("UserId")]
+        public virtual ApplicationUser User { get; set; }
+
+        /// <summary>
+        /// A list of all questions linked to the quiz.
+        /// It will be filled in the first time it is used thanks to EF's lazy loading functionality
+        /// </summary>
+        public virtual List<Question> Questions { get; set; }
+
+        /// <summary>
+        /// A list of all results linked to the quiz.
+        /// It will be filled in the first time it is used thanks to EF's lazy loading functionality
+        /// </summary>
+        public virtual List<Result> Results { get; set; }
         #endregion
     }
 }

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TestMakerFreeWebApp.ViewModels;
+using TestMakerFreeWebApp.Data;
+using Mapster;
 
 namespace TestMakerFreeWebApp.Controllers
 {
@@ -12,6 +14,18 @@ namespace TestMakerFreeWebApp.Controllers
     [ApiController]
     public class QuizController : ControllerBase
     {
+        #region private fields
+        private ApplicationDbContext DbContext;
+        #endregion
+
+        #region Constructor
+        public QuizController(ApplicationDbContext context)
+        {
+            // Create applicationDbContext by injecting dependencies
+            DbContext = context;
+        }
+        #endregion
+
         #region Methods adapting to the REST convention
         /// <summary>
         /// GET: api/quiz/{}id
@@ -21,19 +35,11 @@ namespace TestMakerFreeWebApp.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            //Add first sample question
-            var v = new QuizViewModel()
-            {
-                Id = id,
-                Text = String.Format("sample quiz with the identifier {0}", id),
-                Description = "This is not a real quiz - just a sample",
-                CreatedDate = DateTime.Now,
-                LastModifiedDate = DateTime.Now,
-            };
+            var quiz = DbContext.Quizzes.Where(i => i.Id == id).FirstOrDefault();
 
             //Return results in JSON format
             return new JsonResult(
-                v,
+                quiz.Adapt<QuizViewModel>(),
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented,
@@ -81,34 +87,14 @@ namespace TestMakerFreeWebApp.Controllers
         [HttpGet("Latest/{num?}")]
         public IActionResult Latest(int num = 10)
         {
-            var sampleQuizzes = new List<QuizViewModel>();
-
-            //Add first sample quiz
-            sampleQuizzes.Add(new QuizViewModel()
-            {
-                Id = 1,
-                Title = "Which character from Shingeki No Kyojin are you?",
-                Description = "Personality test based on anime",
-                CreatedDate = DateTime.Now,
-                LastModifiedDate = DateTime.Now
-            });
-
-            //Add more sample quizzes
-            for (int i = 2; i <= num; i++)
-            {
-                sampleQuizzes.Add(new QuizViewModel()
-                {
-                    Id = i,
-                    Title = String.Format("Sample Quiz {0}", i),
-                    Description = "This is a sample quiz",
-                    CreatedDate = DateTime.Now,
-                    LastModifiedDate = DateTime.Now
-                });
-            }
+            var latest = DbContext.Quizzes
+                .OrderByDescending(q => q.CreatedDate)
+                .Take(num)
+                .ToArray();
 
             //Pass the results in JSON format
             return new JsonResult(
-                sampleQuizzes,
+                latest.Adapt<QuizViewModel[]>(),
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented,
@@ -124,10 +110,13 @@ namespace TestMakerFreeWebApp.Controllers
         [HttpGet("ByTitle/{num:int?}")]
         public IActionResult ByTittle(int num = 10)
         {
-            var sampleQuizzes = ((JsonResult)Latest(num)).Value as List<QuizViewModel>;
+            var byTitle = DbContext.Quizzes
+                .OrderBy(q => q.Title)
+                .Take(num)
+                .ToArray();
             
             return new JsonResult(
-                sampleQuizzes.OrderBy(t => t.Title),
+                byTitle.Adapt<QuizViewModel[]>(),
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented,
@@ -143,10 +132,13 @@ namespace TestMakerFreeWebApp.Controllers
         [HttpGet("Random/{num:int?}")]
         public IActionResult Random(int num = 10)
         {
-            var sampleQuizzes = ((JsonResult)Latest(num)).Value as List<QuizViewModel>;
+            var random = DbContext.Quizzes
+                .OrderBy(q => Guid.NewGuid())
+                .Take(num)
+                .ToArray();
 
             return new JsonResult(
-                sampleQuizzes.OrderBy(t => Guid.NewGuid()),
+                random.Adapt<QuizViewModel[]>(),
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented,
