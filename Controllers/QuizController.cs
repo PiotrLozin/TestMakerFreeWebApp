@@ -137,7 +137,8 @@ namespace TestMakerFreeWebApp.Controllers
             DbContext.SaveChanges();
 
             // Return changed quiz to the client
-            return new JsonResult(quiz.Adapt<QuizViewModel>(),
+            return new JsonResult(
+                quiz.Adapt<QuizViewModel>(),
                 new JsonSerializerSettings()
                 {
                     Formatting = Formatting.Indented,
