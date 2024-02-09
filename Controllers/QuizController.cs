@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using TestMakerFreeWebApp.ViewModels;
 using TestMakerFreeWebApp.Data;
 using Mapster;
+using TestMakerFreeWebApp.Data.Models;
+using System.Data;
 
 namespace TestMakerFreeWebApp.Controllers
 {
@@ -37,7 +39,16 @@ namespace TestMakerFreeWebApp.Controllers
         {
             var quiz = DbContext.Quizzes.Where(i => i.Id == id).FirstOrDefault();
 
-            //Return results in JSON format
+            // Handle requests asking for non-existent quizzes
+            if (quiz == null) 
+            {
+                return NotFound(new
+                {
+                    Error = String.Format("Unable to find quiz with ID {0}", id)
+                }); ;
+            }
+
+            // Return results in JSON format
             return new JsonResult(
                 quiz.Adapt<QuizViewModel>(),
                 new JsonSerializerSettings()
@@ -51,9 +62,43 @@ namespace TestMakerFreeWebApp.Controllers
         /// </summary>
         /// <param name="model">QuizViewModel object with data to be inserted</param>
         [HttpPut]
-        public IActionResult Put(QuizViewModel model)
+        public IActionResult Put([FromBody]QuizViewModel model)
         {
-            throw new NotImplementedException();
+            // Returns status code HTTP 500 (Server Error)
+            // if transmitted data are improperly
+            if (model == null) return new StatusCodeResult(500);
+
+            // Support for insertion without object mapping
+            var quiz = new Quiz();
+
+            // Properties uploaded from the request
+            quiz.Title = model.Title;
+            quiz.Description = model.Description;
+            quiz.Text = model.Text;
+            quiz.Notes = model.Notes;
+
+            // Properties handled by server
+            quiz.CreatedDate = DateTime.Now;
+            quiz.LastModifiedDate = quiz.CreatedDate;
+
+            // Right now, autor will be assigned to Admin
+            // because login function is not implemented yet
+            quiz.UserId = DbContext.Users.Where(u => u.UserName == "Admin").
+                FirstOrDefault().Id;
+
+            // Add new quiz
+            DbContext.Quizzes.Add(quiz);
+            // Save changes in DataBase
+            DbContext.SaveChanges();
+
+            // Return the newly created quiz to the client
+            return new JsonResult(
+                quiz.Adapt<QuizViewModel>(),
+                new JsonSerializerSettings()
+                {
+                    Formatting= Formatting.Indented,
+                });
+
         }
 
         /// <summary>
@@ -61,9 +106,42 @@ namespace TestMakerFreeWebApp.Controllers
         /// </summary>
         /// <param name="model">QuizViewModel object with data to be updated</param>
         [HttpPost]
-        public IActionResult Post(QuizViewModel model)
+        public IActionResult Post([FromBody]QuizViewModel model)
         {
-            throw new NotImplementedException();
+            // Returns status code HTTP 500 (Server Error)
+            // if transmitted data are improperly
+            if (model == null) return new StatusCodeResult(500);
+
+            // Upload quiz to modify
+            var quiz = DbContext.Quizzes.Where(q => q.Id == model.Id).FirstOrDefault();
+
+            // Handle requests for non-existing quizzes
+            if (quiz == null)
+            {
+                return NotFound(new
+                {
+                    Error = String.Format("Cannot found quiz with ID {0}", model.Id)
+                });
+            }
+
+            // Properties uploaded from the request
+            quiz.Title = model.Title;
+            quiz.Description = model.Description;
+            quiz.Text = model.Text;
+            quiz.Notes = model.Notes;
+
+            // Properties handled by server
+            quiz.LastModifiedDate = DateTime.Now;
+
+            // Save changes to DataBase
+            DbContext.SaveChanges();
+
+            // Return changed quiz to the client
+            return new JsonResult(quiz.Adapt<QuizViewModel>(),
+                new JsonSerializerSettings()
+                {
+                    Formatting = Formatting.Indented,
+                });
         }
 
         /// <summary>
@@ -73,7 +151,25 @@ namespace TestMakerFreeWebApp.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            throw new NotImplementedException();
+            // Upload quiz do modify
+            var quiz = DbContext.Quizzes.Where(q => q.Id == id).FirstOrDefault();
+
+            // Handle request for non-existing quizzes
+            if (quiz == null)
+            {
+                return NotFound(new
+                {
+                    Error = String.Format("Cannot found quiz with ID {0}", id)
+                });
+            }
+
+            // Delete quiz from DataBase
+            DbContext.Quizzes.Remove(quiz);
+            // Save changes in DataBase
+            DbContext.SaveChanges();
+
+            // Return HTTP code status 204
+            return new NoContentResult();
         }
         #endregion
 
