@@ -1,21 +1,21 @@
 <h2>{{title}}</h2>
 <div class="quiz-edit">
   <div>
-    <label for="title">Quiz tittle</label>
+    <label for="title">Quiz title</label>
     <br />
-    <input type="text" id="title" [{ngModel}]="quiz.Title"
+    <input type="text" id="title" [(ngModel)]="quiz.Title"
            placeholder="type title..." />
   </div>
   <div>
     <label for="description">Quiz description</label>
     <br />
-    <input type="text" id="description" [{ngModel}]="quiz.Description"
+    <input type="text" id="description" [(ngModel)]="quiz.Description"
            placeholder="type description..." />
   </div>
   <div>
     <label for="text">Additional information about quiz</label>
     <br />
-    <textarea id="text" [{ngModel}]="quiz.Text"
+    <textarea id="text" [(ngModel)]="quiz.Text"
       placeholder="type text..."></textarea>
   </div>
   <div>

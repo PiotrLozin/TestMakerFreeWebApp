@@ -16,6 +16,7 @@ export class QuizComponent {
     private router: Router,
     private http: HttpClient,
     @Inject('BASE_URL') private baseUrl: string) {
+    this.baseUrl = "https://localhost:7136/";
     //Creation of an empty object on the basis of the quiz interface
     this.quiz = <Quiz>{};
 
@@ -30,6 +31,22 @@ export class QuizComponent {
     else {
       console.log("Wrong id - navigate to home");
       this.router.navigate(["home"]);
+    }
+  }
+
+  onEdit() {
+    this.router.navigate(["quiz/edit", this.quiz?.Id]);
+  }
+
+  onDelete() {
+
+    if (confirm("Are you sure to delete this quiz?")) {
+
+      var url = this.baseUrl + "api/quiz/" + this.quiz?.Id;
+      this.http.delete(url).subscribe(res => {
+        console.log("Quiz " + this.quiz?.Id + " was deleted.");
+        this.router.navigate(["home"]);
+      }, error => console.log(error));
     }
   }
 }

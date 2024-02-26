@@ -19,6 +19,7 @@ import { PageNotFoundComponent } from './components/pagenotfound/pagenotfound.co
     AppComponent,
     NavMenuComponent,
     HomeComponent,
+    QuizEditComponent,
     QuizListComponent,
     QuizComponent,
     AboutComponent,
@@ -31,7 +32,9 @@ import { PageNotFoundComponent } from './components/pagenotfound/pagenotfound.co
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: 'quiz/create', component: QuizEditComponent },
+      { path: 'quiz/edit/:id', component: QuizEditComponent },
       { path: 'quiz/:id', component: QuizComponent },
       { path: 'about', component: AboutComponent },
       { path: 'login', component: LoginComponent },
