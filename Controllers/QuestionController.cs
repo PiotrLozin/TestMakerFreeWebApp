@@ -7,22 +7,13 @@ using TestMakerFreeWebApp.ViewModels;
 
 namespace TestMakerFreeWebApp.Controllers
 {
-    [Route("api/[controller]")]
-    public class QuestionController : ControllerBase
+    public class QuestionController : BaseApiController
     {
-        #region Private fields
-
-        private ApplicationDbContext DbContext;
-
-        #endregion
 
         #region Constructors
 
         public QuestionController(ApplicationDbContext context)
-        {
-            // Create ApplicationDbContext using incjected dependencies
-            DbContext = context;
-        }
+            :   base(context) { }
 
         #endregion
 
@@ -48,10 +39,7 @@ namespace TestMakerFreeWebApp.Controllers
 
             return new JsonResult(
                 question.Adapt<QuestionViewModel>(),
-                new JsonSerializerSettings()
-                {
-                    Formatting = Formatting.Indented,
-                });
+                JsonSettings);
         }
 
         /// <summary>
@@ -80,10 +68,7 @@ namespace TestMakerFreeWebApp.Controllers
 
             // Return new added question to the client
             return new JsonResult(question.Adapt<QuestionViewModel>(),
-                new JsonSerializerSettings()
-                {
-                    Formatting = Formatting.Indented,
-                });
+                JsonSettings);
         }
 
         /// <summary>
@@ -120,10 +105,7 @@ namespace TestMakerFreeWebApp.Controllers
 
             // Returns updated question to the client
             return new JsonResult(question.Adapt<QuestionViewModel>(),
-                new JsonSerializerSettings()
-                {
-                    Formatting = Formatting.Indented,
-                });
+                JsonSettings);
         }
 
         /// <summary>
@@ -163,10 +145,7 @@ namespace TestMakerFreeWebApp.Controllers
             //Pass the results in JSON format
             return new JsonResult(
                 questions.Adapt<QuestionViewModel[]>(),
-                new JsonSerializerSettings()
-                {
-                    Formatting = Formatting.Indented,
-                });
+                JsonSettings);
         }
         #endregion
     }
