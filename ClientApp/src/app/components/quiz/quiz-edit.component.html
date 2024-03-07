@@ -16,7 +16,7 @@
     <label for="text">Additional information about quiz</label>
     <br />
     <textarea id="text" [(ngModel)]="quiz.Text"
-      placeholder="type text..."></textarea>
+              placeholder="type text..."></textarea>
   </div>
   <div>
     <input *ngIf="editMode" type="button" value="Save changes"
@@ -25,4 +25,7 @@
            (click)="onSubmit(quiz)" />
     <input type="button" value="Cancel" (click)="onBack()" />
   </div>
+  <question-list [quiz]="quiz" *ngIf="editMode"></question-list>
+
+  <result-list [quiz]="quiz" *ngIf="editMode"></result-list>
 </div>

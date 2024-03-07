@@ -1,0 +1,33 @@
+<h3>Results</h3>
+<div *ngIf="results.length > 0">
+  <table class="results">
+    <thead>
+      <tr>
+        <th>Content</th>
+        <th>Min. Value</th>
+        <th>Max. Value</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let result of results">
+        <td>{{result.Text}}</td>
+        <td *ngIf="result.MinValue === null">Not available</td>
+        <td *ngIf="result.MinValue !== null">{{result.MinValue}}</td>
+        <td *ngIf="result.MaxValue === null">Not available</td>
+        <td *ngIf="result.MaxValue === null">{{result.MaxValue}}</td>
+        <td>
+          <input type="button" value="Edit"
+                 (click)="onEdit(result)" />
+          <input type="button" value="Delete"
+                 (click)="onDelete(result)" />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="questions.length == 0">
+  This quiz don't have questions yet:
+  click <strong>Add question</strong>, to add first question!
+</div>
+<input type="button" value="Add question" (click)="onCreate()" />

@@ -1,0 +1,18 @@
+<h2>{{title}}</h2>
+<div class="question-edit">
+  <div>
+    <label for="text">Content of the question:</label>
+    <br />
+    <textarea id="text" [(ngModel)]="question.Text"
+      placeholder="Type content of the question..."></textarea>
+  </div>
+  <div>
+    <input *ngIf="editMode" type="button" value="Save changes"
+           (click)="onSubmit(question)" />
+    <input *ngIf="!editMode" type="button" value="Create question"
+           (click)="onSubmit(question)" />
+    <input type="button" value="Cancel" (click)="onBack()" />
+  </div>
+
+  <answer-list *ngIf="editMode" [question]="question"></answer-list>
+</div>
