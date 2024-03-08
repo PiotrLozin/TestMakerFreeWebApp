@@ -11,7 +11,7 @@
     <label for="value">Score</label>
     <br />
     <select id="value" name="value" [(ngModel)]="answer.Value">
-      <option *ngFor="let num of [-5, -4, -3, -2,-1, 0, 1, 2, 3, 4, 5]"
+      <option *ngFor="let num of [-5,-4,-3,-2,-1,0,1,2,3,4,5]"
         [value]="num">{{num}}</option>
     </select>
   </div>

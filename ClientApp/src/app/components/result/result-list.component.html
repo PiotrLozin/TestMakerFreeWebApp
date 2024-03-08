@@ -15,7 +15,7 @@
         <td *ngIf="result.MinValue === null">Not available</td>
         <td *ngIf="result.MinValue !== null">{{result.MinValue}}</td>
         <td *ngIf="result.MaxValue === null">Not available</td>
-        <td *ngIf="result.MaxValue === null">{{result.MaxValue}}</td>
+        <td *ngIf="result.MaxValue !== null">{{result.MaxValue}}</td>
         <td>
           <input type="button" value="Edit"
                  (click)="onEdit(result)" />
@@ -26,8 +26,8 @@
     </tbody>
   </table>
 </div>
-<div *ngIf="questions.length == 0">
-  This quiz don't have questions yet:
-  click <strong>Add question</strong>, to add first question!
+<div *ngIf="results.length == 0">
+  This quiz don't have results yet:
+  click <strong>Add result</strong>, to add first result!
 </div>
-<input type="button" value="Add question" (click)="onCreate()" />
+<input type="button" value="Add result" (click)="onCreate()" />

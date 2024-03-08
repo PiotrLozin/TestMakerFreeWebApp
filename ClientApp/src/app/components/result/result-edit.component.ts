@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Quiz } from "../../interfaces/quiz";
+import { Result } from "../../interfaces/result";
 
 @Component({
   selector: "result-edit",
@@ -34,7 +34,7 @@ export class ResultEditComponent {
     if (this.editMode) {
 
       // Download result from the server
-      var url = this.baseUrl + "api/result/All/" + id;
+      var url = this.baseUrl + "api/result/" + id;
       this.http.get<Result>(url).subscribe(result => {
         this.result = result;
         this.title = "Edition - " + this.result.Text;

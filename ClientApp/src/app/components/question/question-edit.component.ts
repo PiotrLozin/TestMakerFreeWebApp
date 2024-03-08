@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Quiz } from "../../interfaces/quiz";
+import { Question } from "../../interfaces/question";
 
 @Component({
   selector: "question-edit",
@@ -34,7 +34,7 @@ export class QuestionEditComponent {
     if (this.editMode) {
 
       // Download question from the server
-      var url = this.baseUrl + "api/question/All/" + id;
+      var url = this.baseUrl + "api/question/" + id;
       this.http.get<Question>(url).subscribe(result => {
         this.question = result;
         this.title = "Edition - " + this.question.Text;

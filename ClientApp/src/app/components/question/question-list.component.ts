@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Component, Inject, Input, OnChanges, SimpleChange, SimpleChanges } from "@angular/core";
 import { Router } from "@angular/router";
 import { Quiz } from "../../interfaces/quiz";
+import { Question } from "../../interfaces/question";
 
 @Component({
   selector: "question-list",
@@ -11,7 +12,7 @@ import { Quiz } from "../../interfaces/quiz";
 
 export class QuestionListComponent implements OnChanges {
   @Input() quiz: Quiz | undefined;
-  questions: Question[] | undefined;
+  questions: Question[];
   title: string | undefined;
   baseUrl: string;
 
@@ -19,7 +20,7 @@ export class QuestionListComponent implements OnChanges {
     @Inject('BASE_URL') baseUrl: string,
     private router: Router  ) {
     this.questions = [];
-    this.baseUrl = "https://localhost:7136/api/question/All/"
+    this.baseUrl = "https://localhost:7136/"
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -36,7 +37,7 @@ export class QuestionListComponent implements OnChanges {
   }
 
   loadData() {
-    var url = this.baseUrl + this.quiz?.Id;
+    var url = this.baseUrl + "api/question/All/" + this.quiz?.Id;
     this.http.get<Question[]>(url).subscribe(result => {
       this.questions = result;
     }, error => console.error(error));
@@ -52,7 +53,7 @@ export class QuestionListComponent implements OnChanges {
 
   onDelete(question: Question) {
     if (confirm("Do you really want to delete this question")) {
-      var url = this.baseUrl + question.Id;
+      var url = this.baseUrl + "api/question/" + question.Id;
       this.http
         .delete(url)
         .subscribe(res => {

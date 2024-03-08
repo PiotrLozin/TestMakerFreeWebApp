@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Component, Inject, Input, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Quiz } from "../../interfaces/quiz";
+import { Answer } from "../../interfaces/answer";
 
 @Component({
   selector: "answer-edit",
@@ -23,7 +23,7 @@ export class AnswerEditComponent {
     @Inject('BASE_URL') private baseUrl: string) {
     this.baseUrl = "https://localhost:7136/";
 
-    // Create empty object based on interface Answer
+    // Create empty object based on interface answer
     this.answer = <Answer>{};
 
     var id = +this.activatedRoute.snapshot.params["id"];
@@ -34,7 +34,7 @@ export class AnswerEditComponent {
     if (this.editMode) {
 
       // Download answer from the server
-      var url = this.baseUrl + "api/answer/All/" + id;
+      var url = this.baseUrl + "api/answer/" + id;
       this.http.get<Answer>(url).subscribe(result => {
         this.answer = result;
         this.title = "Edition - " + this.answer.Text;
