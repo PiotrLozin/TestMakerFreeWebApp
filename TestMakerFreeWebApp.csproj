@@ -32,6 +32,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\src\app\components\about\about.component.ts" />
     <None Remove="ClientApp\src\app\components\answer\answer-edit.component.ts" />
     <None Remove="ClientApp\src\app\components\answer\answer-list.component.ts" />
@@ -47,6 +51,10 @@
     <None Remove="ClientApp\src\app\interfaces\question.ts" />
     <None Remove="ClientApp\src\app\interfaces\quiz.ts" />
     <None Remove="ClientApp\src\app\interfaces\result.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="compilerconfig.json" />
   </ItemGroup>
 
   <ItemGroup>
