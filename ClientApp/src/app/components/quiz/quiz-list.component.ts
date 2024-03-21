@@ -36,7 +36,7 @@ export class QuizListComponent implements OnInit {
         this.title = "Quizzes alphabetically";
         url += "ByTitle/";
         break;
-      case "byTitle":
+      case "random":
         this.title = "Quizzes randomly";
         url += "Random/";
         break;

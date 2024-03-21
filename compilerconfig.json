@@ -46,5 +46,13 @@
   {
     "outputFile": "ClientApp/src/styles.css",
     "inputFile": "ClientApp/src/styles.less"
+  },
+  {
+    "outputFile": "ClientApp/src/app/app.component.css",
+    "inputFile": "ClientApp/src/app/app.component.less"
+  },
+  {
+    "outputFile": "ClientApp/src/app/components/quiz/quiz-search.component.css",
+    "inputFile": "ClientApp/src/app/components/quiz/quiz-search.component.less"
   }
 ]

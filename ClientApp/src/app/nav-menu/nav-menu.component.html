@@ -1,59 +1,52 @@
 <header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">TestMakerFreeWebApp</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white box-shadow mb-3 d-flex justify-content-between align-items-center">
+    <div class="navbar-header">
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
-        [ngClass]="{ show: isExpanded }"
-      >
-        <ul class="navbar-nav flex-grow">
-          <li class="nav-item"
-              [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/']">
-              <i class="bi bi-house-fill"></i>
-              Home
-            </a>
-          </li>
-          <li class="nav-item"
-              [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/about']">
-              <i class="bi bi-info-circle"></i>
-              About website
-            </a>
-          </li>
-          <li class="nav-item"
-              [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/login']">
-              <i class="bi bi-box-arrow-in-right"></i>
-              Login
-            </a>
-          </li>
-          <li class="nav-item"
-              [routerLinkActive]="['link-active']"
-              [routerLinkActiveOptions]="{ exact: true }">
-            <a class="nav-link text-dark" [routerLink]="['/quiz/create']">
-              <i class="bi bi-file-earmark-plus-fill"></i>
-              Create quiz
-            </a>
-          </li>
-        </ul>
-      </div>
+      <quiz-search class="search-navmenu" placeholder="Search..."></quiz-search>
+    </div>
+    <div class="main-nav" [ngClass]="{ show: isExpanded }">
+      <ul class="navbar-nav flex-column">
+        <li class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" [routerLink]="['/']">
+            <i class="bi bi-house-fill"></i>
+            Home
+          </a>
+        </li>
+        <li class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" [routerLink]="['/about']">
+            <i class="bi bi-info-circle"></i>
+            About website
+          </a>
+        </li>
+        <li class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" [routerLink]="['/login']">
+            <i class="bi bi-box-arrow-in-right"></i>
+            Login
+          </a>
+        </li>
+        <li class="nav-item"
+            [routerLinkActive]="['link-active']"
+            [routerLinkActiveOptions]="{ exact: true }">
+          <a class="nav-link" [routerLink]="['/quiz/create']">
+            <i class="bi bi-file-earmark-plus-fill"></i>
+            Create quiz
+          </a>
+        </li>
+      </ul>
     </div>
   </nav>
 </header>

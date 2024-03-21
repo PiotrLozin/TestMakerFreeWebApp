@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -19,6 +20,7 @@ import { AnswerListComponent } from './components/answer/answer-list.component';
 import { AnswerEditComponent } from './components/answer/answer-edit.component';
 import { ResultListComponent } from './components/result/result-list.component';
 import { ResultEditComponent } from './components/result/result-edit.component';
+import { QuizSearchComponent } from './components/quiz/quiz-search.component';
 
 @NgModule({
   declarations: [
@@ -36,10 +38,12 @@ import { ResultEditComponent } from './components/result/result-edit.component';
     AnswerListComponent,
     AnswerEditComponent,
     ResultListComponent,
-    ResultEditComponent
+    ResultEditComponent,
+    QuizSearchComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    NgbModule,
     HttpClientModule,
     FormsModule,
     RouterModule.forRoot([
